@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
-import { Play, Pause, Volume2, VolumeX, Maximize, Settings, Zap, ZapOff } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Settings, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 
 interface LiveVideoPlayerProps {
@@ -143,18 +144,15 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
     }, 3000);
   };
 
-  const changeSpeed = () => {
+  const setSpeed = (speed: number) => {
     const video = videoRef.current;
     if (!video) return;
-
-    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
-    const currentIndex = speeds.indexOf(playbackRate);
-    const nextIndex = (currentIndex + 1) % speeds.length;
-    const newSpeed = speeds[nextIndex];
     
-    video.playbackRate = newSpeed;
-    setPlaybackRate(newSpeed);
+    video.playbackRate = speed;
+    setPlaybackRate(speed);
   };
+
+  const speeds = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2];
 
   return (
     <div 
@@ -241,15 +239,32 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Speed Control */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={changeSpeed}
-            className="text-white hover:bg-white/20 text-xs font-medium min-w-[3rem]"
-          >
-            {playbackRate}x
-          </Button>
+          {/* Playback Speed */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-white/20 text-xs font-medium min-w-[4rem] flex items-center gap-1"
+              >
+                {playbackRate}x
+                <ChevronDown className="w-3 h-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-black/90 border-border/20">
+              {speeds.map((speed) => (
+                <DropdownMenuItem
+                  key={speed}
+                  onClick={() => setSpeed(speed)}
+                  className={`text-white hover:bg-white/10 cursor-pointer ${
+                    playbackRate === speed ? 'bg-white/20' : ''
+                  }`}
+                >
+                  {speed}x {speed === 1 ? '(Normal)' : ''}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Fullscreen */}
           <Button
