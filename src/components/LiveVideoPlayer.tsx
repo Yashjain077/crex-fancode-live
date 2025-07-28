@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
-import { Play, Pause, Volume2, VolumeX, Maximize, Settings } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Settings, Zap, ZapOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
@@ -20,6 +20,7 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
   const [showControls, setShowControls] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [playbackRate, setPlaybackRate] = useState(1);
   const controlsTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -33,15 +34,17 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
       const hls = new Hls({
         enableWorker: true,
         lowLatencyMode: true,
-        backBufferLength: 30,
-        maxBufferLength: 60,
-        maxMaxBufferLength: 600,
+        backBufferLength: 0,
+        maxBufferLength: 1,
+        maxMaxBufferLength: 1,
         liveDurationInfinity: true,
         liveBackBufferLength: 0,
-        manifestLoadingTimeOut: 10000,
-        manifestLoadingMaxRetry: 4,
-        levelLoadingTimeOut: 10000,
-        fragLoadingTimeOut: 20000,
+        manifestLoadingTimeOut: 5000,
+        manifestLoadingMaxRetry: 2,
+        levelLoadingTimeOut: 5000,
+        fragLoadingTimeOut: 10000,
+        startLevel: -1,
+        autoStartLoad: true,
       });
 
       hlsRef.current = hls;
@@ -140,6 +143,19 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
     }, 3000);
   };
 
+  const changeSpeed = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
+    const currentIndex = speeds.indexOf(playbackRate);
+    const nextIndex = (currentIndex + 1) % speeds.length;
+    const newSpeed = speeds[nextIndex];
+    
+    video.playbackRate = newSpeed;
+    setPlaybackRate(newSpeed);
+  };
+
   return (
     <div 
       className={cn(
@@ -225,13 +241,14 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Quality Settings */}
+          {/* Speed Control */}
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-white/20"
+            onClick={changeSpeed}
+            className="text-white hover:bg-white/20 text-xs font-medium min-w-[3rem]"
           >
-            <Settings className="w-5 h-5" />
+            {playbackRate}x
           </Button>
 
           {/* Fullscreen */}
