@@ -11,7 +11,7 @@ const Index = () => {
 
   useEffect(() => {
     // Set page title
-    document.title = "Live Cricket Stream - Australia vs West Indies 5th T20I";
+    document.title = "Skull Crick News - Australia vs West Indies 5th T20I";
     
     // Add meta tags for better SEO
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -30,7 +30,7 @@ const Index = () => {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img src={cricketIcon} alt="Cricket" className="w-8 h-8" />
-              <h1 className="text-xl font-bold text-foreground">CricketLive</h1>
+              <h1 className="text-xl font-bold text-foreground">Skull Crick News</h1>
             </div>
 
             {/* Live Badge */}
@@ -87,7 +87,7 @@ const Index = () => {
       <footer className="bg-card/50 border-t border-border/20 mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-sm text-muted-foreground">
-            <p>© 2025 CricketLive. Live streaming with zero delay technology.</p>
+            <p>© 2025 Skull Crick News. Live streaming with zero delay technology.</p>
           </div>
         </div>
       </footer>
