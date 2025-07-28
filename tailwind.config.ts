@@ -61,7 +61,29 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				cricket: {
+					green: 'hsl(var(--cricket-green))',
+					gold: 'hsl(var(--cricket-gold))',
+					field: 'hsl(var(--cricket-field))',
+					pitch: 'hsl(var(--cricket-pitch))'
+				},
+				live: {
+					red: 'hsl(var(--live-red))',
+					glow: 'hsl(var(--live-glow))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-card': 'var(--gradient-card)'
+			},
+			boxShadow: {
+				'glow': 'var(--shadow-glow)',
+				'live': 'var(--shadow-live)'
+			},
+			transitionProperty: {
+				'smooth': 'var(--transition-smooth)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
