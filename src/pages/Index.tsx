@@ -7,16 +7,17 @@ import cricketHero from '@/assets/cricket-hero.jpg';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Index = () => {
-  const streamUrl = "https://in-mc-fdlive.fancode.com/mumbai/127557_english_hls_64956ta-di_h264/index.m3u8";
+  const match1StreamUrl = "https://in-mc-fdlive.fancode.com/mumbai/129732_english_hls_65834ta-di_h264/index.m3u8";
+  const match2StreamUrl = "https://in-mc-pdlive.fancode.com/mumbai/132722_english_hls_30145ta-di_h264/index.m3u8";
 
   useEffect(() => {
     // Set page title
-    document.title = "Skull Crick News - Australia vs West Indies 5th T20I";
+    document.title = "Skull Crick News - Live Cricket Matches";
     
     // Add meta tags for better SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Watch live cricket stream of Australia vs West Indies 5th T20I with live scoreboard and real-time updates.');
+      metaDescription.setAttribute('content', 'Watch live cricket streams with real-time updates on Skull Crick News.');
     }
   }, []);
 
@@ -44,39 +45,71 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 space-y-6">
-        {/* Hero Section */}
+        {/* Hero Section - Match 1 */}
         <div className="relative rounded-xl overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${cricketHero})` }}
+            style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/129732_5370_IAC_WIC_fc-App.jpg)` }}
           />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 p-8 text-center text-white">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Trophy className="w-6 h-6 text-cricket-gold" />
-              <h2 className="text-3xl md:text-4xl font-bold">Australia vs West Indies</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">India Champions vs West Indies Champions</h2>
             </div>
-            <p className="text-xl text-white/90 mb-2">5th T20I - Australia Tour of West Indies 2025</p>
-            <Badge className="bg-cricket-gold/20 text-cricket-gold border-cricket-gold/30">
-              Kensington Oval, Bridgetown
-            </Badge>
+            <p className="text-xl text-white/90 mb-2">Match 15 - World Championship of Legends 2025</p>
           </div>
         </div>
 
-        {/* Video Player */}
+        {/* Video Player - Match 1 */}
         <Card className="p-6 bg-gradient-card border-border/20">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Live Stream</h3>
+            <h3 className="text-lg font-semibold">India Champions vs West Indies Champions - Match 15</h3>
             <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
               <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
-              Zero Delay
+              LIVE
             </Badge>
           </div>
           
           <div className="aspect-video">
             <LiveVideoPlayer 
-              streamUrl={streamUrl}
-              title="Australia vs West Indies - 5th T20I"
+              streamUrl={match1StreamUrl}
+              title="India Champions vs West Indies Champions - Match 15"
+              className="w-full h-full"
+            />
+          </div>
+        </Card>
+
+        {/* Hero Section - Match 2 */}
+        <div className="relative rounded-xl overflow-hidden">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/USA-Women-U19-tour-of-West-India,-2025_match-card.jpg)` }}
+          />
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative z-10 p-8 text-center text-white">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Trophy className="w-6 h-6 text-cricket-gold" />
+              <h2 className="text-3xl md:text-4xl font-bold">West Indies Women U19 vs USA Women U19</h2>
+            </div>
+            <p className="text-xl text-white/90 mb-2">USA Women U19 Tour of West Indies 2025</p>
+          </div>
+        </div>
+
+        {/* Video Player - Match 2 */}
+        <Card className="p-6 bg-gradient-card border-border/20">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold">West Indies Women U19 vs USA Women U19</h3>
+            <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
+              <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
+              LIVE
+            </Badge>
+          </div>
+          
+          <div className="aspect-video">
+            <LiveVideoPlayer 
+              streamUrl={match2StreamUrl}
+              title="West Indies Women U19 vs USA Women U19"
               className="w-full h-full"
             />
           </div>
