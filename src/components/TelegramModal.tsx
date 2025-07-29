@@ -8,10 +8,14 @@ export const TelegramModal = () => {
   const [hasJoined, setHasJoined] = useState(false);
 
   useEffect(() => {
-    // Check if user has already joined
-    const joined = localStorage.getItem('telegram_joined');
-    if (joined) {
-      setHasJoined(true);
+    // Check if user has already joined with validation
+    try {
+      const joined = localStorage.getItem('telegram_joined');
+      if (joined === 'true') {
+        setHasJoined(true);
+      }
+    } catch (error) {
+      console.warn('Failed to access localStorage:', error);
     }
 
     // Disable right-click context menu
@@ -56,16 +60,24 @@ export const TelegramModal = () => {
   }, [hasJoined]);
 
   const handleJoinTelegram = () => {
-    // Open Telegram link in new tab
-    window.open('https://t.me/your_cricket_channel', '_blank');
-    localStorage.setItem('telegram_joined', 'true');
-    setHasJoined(true);
+    // Open Telegram link in new tab with security attributes
+    window.open('https://t.me/your_cricket_channel', '_blank', 'noopener,noreferrer');
+    try {
+      localStorage.setItem('telegram_joined', 'true');
+      setHasJoined(true);
+    } catch (error) {
+      console.warn('Failed to save to localStorage:', error);
+    }
     setIsOpen(false);
   };
 
   const handleAlreadyJoined = () => {
-    localStorage.setItem('telegram_joined', 'true');
-    setHasJoined(true);
+    try {
+      localStorage.setItem('telegram_joined', 'true');
+      setHasJoined(true);
+    } catch (error) {
+      console.warn('Failed to save to localStorage:', error);
+    }
     setIsOpen(false);
   };
 
