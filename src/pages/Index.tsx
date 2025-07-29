@@ -1,20 +1,14 @@
 import { useEffect } from 'react';
-import { LiveVideoPlayer } from '@/components/LiveVideoPlayer';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { Trophy } from 'lucide-react';
-import cricketHero from '@/assets/cricket-hero.jpg';
+import { Button } from '@/components/ui/button';
+import { Trophy, Play } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Index = () => {
-  const match1StreamUrl = "https://in-mc-fdlive.fancode.com/mumbai/129732_english_hls_65834ta-di_h264/index.m3u8";
-  const match2StreamUrl = "https://in-mc-pdlive.fancode.com/mumbai/132722_english_hls_30145ta-di_h264/index.m3u8";
-
   useEffect(() => {
-    // Set page title
     document.title = "Skull Crick News - Live Cricket Matches";
-    
-    // Add meta tags for better SEO
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 'Watch live cricket streams with real-time updates on Skull Crick News.');
@@ -45,75 +39,76 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 space-y-6">
-        {/* Hero Section - Match 1 */}
-        <div className="relative rounded-xl overflow-hidden">
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/129732_5370_IAC_WIC_fc-App.jpg)` }}
-          />
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 p-8 text-center text-white">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Trophy className="w-6 h-6 text-cricket-gold" />
-              <h2 className="text-3xl md:text-4xl font-bold">India Champions vs West Indies Champions</h2>
-            </div>
-            <p className="text-xl text-white/90 mb-2">Match 15 - World Championship of Legends 2025</p>
-          </div>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-4">Live Cricket Matches</h2>
+          <p className="text-muted-foreground">Click on any match to watch live stream</p>
         </div>
 
-        {/* Video Player - Match 1 */}
-        <Card className="p-6 bg-gradient-card border-border/20">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">India Champions vs West Indies Champions - Match 15</h3>
-            <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
-              <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
-              LIVE
-            </Badge>
-          </div>
-          
-          <div className="aspect-video">
-            <LiveVideoPlayer 
-              streamUrl={match1StreamUrl}
-              title="India Champions vs West Indies Champions - Match 15"
-              className="w-full h-full"
-            />
-          </div>
-        </Card>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Match 1 Card */}
+          <Link to="/match1">
+            <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-card border-border/20 overflow-hidden">
+              <div className="relative">
+                <div 
+                  className="aspect-video bg-cover bg-center"
+                  style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/129732_5370_IAC_WIC_fc-App.jpg)` }}
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+                <div className="absolute top-4 right-4">
+                  <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
+                    <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
+                    LIVE
+                  </Badge>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                    <Play className="w-5 h-5 mr-2" />
+                    Watch Live
+                  </Button>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Trophy className="w-5 h-5 text-cricket-gold" />
+                  <h3 className="text-xl font-bold">India Champions vs West Indies Champions</h3>
+                </div>
+                <p className="text-muted-foreground">Match 15 - World Championship of Legends 2025</p>
+              </div>
+            </Card>
+          </Link>
 
-        {/* Hero Section - Match 2 */}
-        <div className="relative rounded-xl overflow-hidden">
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/USA-Women-U19-tour-of-West-India,-2025_match-card.jpg)` }}
-          />
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 p-8 text-center text-white">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Trophy className="w-6 h-6 text-cricket-gold" />
-              <h2 className="text-3xl md:text-4xl font-bold">West Indies Women U19 vs USA Women U19</h2>
-            </div>
-            <p className="text-xl text-white/90 mb-2">USA Women U19 Tour of West Indies 2025</p>
-          </div>
+          {/* Match 2 Card */}
+          <Link to="/match2">
+            <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-card border-border/20 overflow-hidden">
+              <div className="relative">
+                <div 
+                  className="aspect-video bg-cover bg-center"
+                  style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/USA-Women-U19-tour-of-West-India,-2025_match-card.jpg)` }}
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+                <div className="absolute top-4 right-4">
+                  <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
+                    <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
+                    LIVE
+                  </Badge>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                    <Play className="w-5 h-5 mr-2" />
+                    Watch Live
+                  </Button>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Trophy className="w-5 h-5 text-cricket-gold" />
+                  <h3 className="text-xl font-bold">West Indies Women U19 vs USA Women U19</h3>
+                </div>
+                <p className="text-muted-foreground">USA Women U19 Tour of West Indies 2025</p>
+              </div>
+            </Card>
+          </Link>
         </div>
-
-        {/* Video Player - Match 2 */}
-        <Card className="p-6 bg-gradient-card border-border/20">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">West Indies Women U19 vs USA Women U19</h3>
-            <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
-              <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
-              LIVE
-            </Badge>
-          </div>
-          
-          <div className="aspect-video">
-            <LiveVideoPlayer 
-              streamUrl={match2StreamUrl}
-              title="West Indies Women U19 vs USA Women U19"
-              className="w-full h-full"
-            />
-          </div>
-        </Card>
       </main>
 
       {/* Footer */}
