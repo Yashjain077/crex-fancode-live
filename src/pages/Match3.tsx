@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Match3 = () => {
-  const streamUrl = "https://demo-live.ott.co.th/live/eds/ch1/ch1.m3u8";
+  const streamUrl = "https://cors-proxy.cooks.fyi/https://dtvxtream.com/sonyliv2/300256.m3u8";
 
   useEffect(() => {
     document.title = "India vs England 5th Test - Skull Crick News";
