@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Match1 = () => {
-  const streamUrl = "https://live-d-01-icc-we.akamaized.net/variant/v1blackout/vcg-01-d/DASH_DASH/Live/channel(vcg-01-ch-hd-02)/manifest.mpd";
+  const streamUrl = "https://live12p.hotstar.com/hls/live/2027118/inallow-engvsind5test-2025/hin/1540044671/15mindvrm0176560151146347a8b8e3c9f4644d658531july2025/master_ap_1080_5.m3u8";
 
   useEffect(() => {
     document.title = "India Champions vs West Indies Champions - Skull Crick News";
@@ -43,7 +43,7 @@ const Match1 = () => {
         <div className="relative rounded-xl overflow-hidden mb-6">
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(https://www.fancode.com/skillup-uploads/cms-media/129732_5370_IAC_WIC_fc-App.jpg)` }}
+            style={{ backgroundImage: `url(https://img.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/2262/1753875612262-i)` }}
           />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 p-8 text-center text-white">
