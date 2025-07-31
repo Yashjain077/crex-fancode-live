@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Match1 = () => {
-  const streamUrl = "https://in-mc-fdlive.fancode.com/mumbai/129732_english_hls_65834ta-di_h264/index.m3u8";
+  const streamUrl = "https://live-d-01-icc-we.akamaized.net/variant/v1blackout/vcg-01-d/DASH_DASH/Live/channel(vcg-01-ch-hd-02)/manifest.mpd";
 
   useEffect(() => {
     document.title = "India Champions vs West Indies Champions - Skull Crick News";
