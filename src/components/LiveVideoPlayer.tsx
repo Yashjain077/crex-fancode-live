@@ -22,13 +22,19 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const controlsTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Enable CORS bypass
+    setIsLoading(true);
+    setHasError(false);
+    setErrorMessage('');
+
+    // Reset CORS settings
     video.crossOrigin = 'anonymous';
 
     if (Hls.isSupported()) {
@@ -61,15 +67,26 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         console.error('HLS Error:', data);
+        setIsLoading(false);
+        
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              hls.startLoad();
+              if (data.details === 'manifestLoadError') {
+                setHasError(true);
+                setErrorMessage('Stream unavailable: CORS policy restriction. This stream requires direct access.');
+              } else {
+                console.log('Network error, trying to recover...');
+                hls.startLoad();
+              }
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
+              console.log('Media error, trying to recover...');
               hls.recoverMediaError();
               break;
             default:
+              setHasError(true);
+              setErrorMessage('Stream playback failed. Please try again later.');
               hls.destroy();
               break;
           }
@@ -81,8 +98,22 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
         setIsLoading(false);
         video.play().then(() => {
           setIsPlaying(true);
-        }).catch(console.error);
+        }).catch((error) => {
+          console.error('Video play error:', error);
+          setHasError(true);
+          setErrorMessage('Failed to start video playback.');
+        });
       });
+      
+      video.addEventListener('error', () => {
+        setIsLoading(false);
+        setHasError(true);
+        setErrorMessage('Video loading failed. Stream may be unavailable.');
+      });
+    } else {
+      setIsLoading(false);
+      setHasError(true);
+      setErrorMessage('Your browser does not support HLS video streaming.');
     }
 
     return () => {
@@ -192,9 +223,27 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
       />
 
       {/* Loading Spinner */}
-      {isLoading && (
+      {isLoading && !hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80">
           <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </div>
+      )}
+
+      {/* Error Message */}
+      {hasError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/90 text-center p-6">
+          <div className="max-w-md">
+            <div className="w-16 h-16 mx-auto mb-4 text-red-500">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3 className="text-white text-lg font-semibold mb-2">Stream Unavailable</h3>
+            <p className="text-white/80 text-sm mb-4">{errorMessage}</p>
+            <p className="text-white/60 text-xs">
+              This stream may require special access or be temporarily unavailable. Please try again later or use a different stream.
+            </p>
+          </div>
         </div>
       )}
 
