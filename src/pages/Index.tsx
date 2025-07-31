@@ -44,7 +44,7 @@ const Index = () => {
           <p className="text-muted-foreground">Click on any match to watch live stream</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Match 1 Card */}
           <Link to="/match1">
             <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-card border-border/20 overflow-hidden">
@@ -105,6 +105,38 @@ const Index = () => {
                   <h3 className="text-xl font-bold">West Indies Women U19 vs USA Women U19</h3>
                 </div>
                 <p className="text-muted-foreground">USA Women U19 Tour of West Indies 2025</p>
+              </div>
+            </Card>
+          </Link>
+
+          {/* Match 3 Card */}
+          <Link to="/match3">
+            <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-card border-border/20 overflow-hidden">
+              <div className="relative">
+                <div 
+                  className="aspect-video bg-cover bg-center"
+                  style={{ backgroundImage: `url(https://img.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/2262/1753875612262-i)` }}
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+                <div className="absolute top-4 right-4">
+                  <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
+                    <div className="w-2 h-2 bg-live-red rounded-full animate-pulse mr-2" />
+                    LIVE
+                  </Badge>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                    <Play className="w-5 h-5 mr-2" />
+                    Watch Live
+                  </Button>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Trophy className="w-5 h-5 text-cricket-gold" />
+                  <h3 className="text-xl font-bold">India vs England</h3>
+                </div>
+                <p className="text-muted-foreground">5th Test Match - India vs England Test Series 2025</p>
               </div>
             </Card>
           </Link>
