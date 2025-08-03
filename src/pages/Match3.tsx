@@ -8,10 +8,40 @@ import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Match3 = () => {
-  const streamUrl = "https://in-mc-fdlive.fancode.com/mumbai/129734_english_hls_62195ta-di_h264/index.m3u8";
+  const streamUrl = "https://in-mc-fdlive.fancode.com/linear/hls/pb/event/J03TfbJyTyKpdWOLYGULGA/stream/dc93fcdf-369d-4468-8f7c-4b54756a04b0:SIN2/variant/a405a34a985fe40a306d107c9ec93126/bandwidth/3322120.m3u8";
 
   useEffect(() => {
-    document.title = "India vs England 5th Test - Skull Crick News";
+    document.title = "Pakistan vs West Indies 3rd T20I - Skull Crick News";
+    
+    // Block inspect element and developer tools
+    const blockInspect = (e: KeyboardEvent) => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+          (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    const blockRightClick = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    document.addEventListener('keydown', blockInspect);
+    document.addEventListener('contextmenu', blockRightClick);
+    
+    // Block text selection
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+
+    return () => {
+      document.removeEventListener('keydown', blockInspect);
+      document.removeEventListener('contextmenu', blockRightClick);
+      document.body.style.userSelect = '';
+      document.body.style.webkitUserSelect = '';
+    };
   }, []);
 
   return (
@@ -49,9 +79,9 @@ const Match3 = () => {
           <div className="relative z-10 p-8 text-center text-white">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Trophy className="w-6 h-6 text-cricket-gold" />
-              <h2 className="text-3xl md:text-4xl font-bold">India vs England</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">Pakistan vs West Indies</h2>
             </div>
-            <p className="text-xl text-white/90">5th Test Match - India vs England Test Series 2025</p>
+            <p className="text-xl text-white/90">3rd T20I - Pakistan vs West Indies T20I Series 2025</p>
           </div>
         </div>
 
@@ -68,7 +98,7 @@ const Match3 = () => {
           <div className="aspect-video">
             <LiveVideoPlayer 
               streamUrl={streamUrl}
-              title="India vs England - 5th Test Match"
+              title="Pakistan vs West Indies - 3rd T20I"
               className="w-full h-full"
             />
           </div>

@@ -26,6 +26,9 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
   const [errorMessage, setErrorMessage] = useState('');
   const controlsTimeoutRef = useRef<NodeJS.Timeout>();
 
+  // Security: Hide stream URL from DOM
+  const hiddenStreamUrl = btoa(streamUrl).slice(0, 20) + "...";
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -189,11 +192,13 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
     <div 
       className={cn(
         "relative bg-black rounded-lg overflow-hidden shadow-2xl",
-        "border border-border/20",
+        "border border-border/20 select-none",
         className
       )}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => isPlaying && setShowControls(false)}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
     >
       {/* Live Badge */}
       <div className="absolute top-4 left-4 z-20">
@@ -215,11 +220,15 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
       {/* Video Element */}
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover select-none"
         playsInline
         autoPlay
         muted={isMuted}
         onClick={togglePlay}
+        onContextMenu={(e) => e.preventDefault()}
+        controlsList="nodownload nofullscreen noremoteplayback"
+        disablePictureInPicture
+        style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
       />
 
       {/* Loading Spinner */}
