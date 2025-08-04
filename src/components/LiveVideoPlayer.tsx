@@ -10,9 +10,11 @@ interface LiveVideoPlayerProps {
   streamUrl: string;
   title?: string;
   className?: string;
+  isPlaying?: boolean;
+  onPlayStateChange?: (isPlaying: boolean) => void;
 }
 
-export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayerProps) => {
+export const LiveVideoPlayer = ({ streamUrl, title, className, isPlaying: externalIsPlaying = true, onPlayStateChange }: LiveVideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -66,9 +68,12 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         setIsLoading(false);
-        video.play().then(() => {
-          setIsPlaying(true);
-        }).catch(console.error);
+        if (externalIsPlaying) {
+          video.play().then(() => {
+            setIsPlaying(true);
+            onPlayStateChange?.(true);
+          }).catch(console.error);
+        }
       });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
@@ -129,6 +134,23 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
     };
   }, [streamUrl]);
 
+  // Effect to handle external play/pause control
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (externalIsPlaying && !isPlaying) {
+      video.play().then(() => {
+        setIsPlaying(true);
+        onPlayStateChange?.(true);
+      }).catch(console.error);
+    } else if (!externalIsPlaying && isPlaying) {
+      video.pause();
+      setIsPlaying(false);
+      onPlayStateChange?.(false);
+    }
+  }, [externalIsPlaying]);
+
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -136,9 +158,11 @@ export const LiveVideoPlayer = ({ streamUrl, title, className }: LiveVideoPlayer
     if (isPlaying) {
       video.pause();
       setIsPlaying(false);
+      onPlayStateChange?.(false);
     } else {
       video.play().then(() => {
         setIsPlaying(true);
+        onPlayStateChange?.(true);
       }).catch(console.error);
     }
   };
