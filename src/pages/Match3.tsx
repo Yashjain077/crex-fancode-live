@@ -113,15 +113,18 @@ const Match3 = () => {
         {/* Key Moments */}
         <Card className="p-6 bg-gradient-card border-border/20">
           <h3 className="text-lg font-semibold mb-4">Key Moments</h3>
-          <div style={{padding:"75% 0 0 0", position:"relative"}}>
-            <iframe 
-              src="https://player.vimeo.com/video/1106948542?badge=0&autopause=0&player_id=0&app_id=58479" 
-              frameBorder="0" 
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-              referrerPolicy="strict-origin-when-cross-origin" 
-              style={{position:"absolute", top:0, left:0, width:"100%", height:"100%"}} 
-              title="Match Highlights"
-            />
+          <div className="aspect-video rounded-lg overflow-hidden bg-black">
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              preload="metadata"
+              onContextMenu={(e) => e.preventDefault()}
+              controlsList="nodownload"
+              style={{ userSelect: 'none' }}
+            >
+              <source src="https://vimeo.com/1106948542/download" type="video/mp4" />
+              <p className="text-white p-4">Your browser does not support the video tag.</p>
+            </video>
           </div>
         </Card>
 
