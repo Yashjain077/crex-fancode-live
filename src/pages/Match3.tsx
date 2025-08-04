@@ -91,7 +91,7 @@ const Match3 = () => {
         </div>
 
         {/* Video Player */}
-        <Card className="p-6 bg-gradient-card border-border/20">
+        <Card className="p-6 bg-gradient-card border-border/20 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold">Live Stream</h3>
             <Badge variant="outline" className="bg-live-red/20 text-live-red border-live-red/30">
@@ -106,6 +106,21 @@ const Match3 = () => {
               streamUrl={streamUrl}
               title="Pakistan vs West Indies - 3rd T20I"
               className="w-full h-full"
+            />
+          </div>
+        </Card>
+
+        {/* Key Moments */}
+        <Card className="p-6 bg-gradient-card border-border/20">
+          <h3 className="text-lg font-semibold mb-4">Key Moments</h3>
+          <div style={{padding:"75% 0 0 0", position:"relative"}}>
+            <iframe 
+              src="https://player.vimeo.com/video/1106948542?badge=0&autopause=0&player_id=0&app_id=58479" 
+              frameBorder="0" 
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              style={{position:"absolute", top:0, left:0, width:"100%", height:"100%"}} 
+              title="Match Highlights"
             />
           </div>
         </Card>

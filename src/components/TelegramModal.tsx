@@ -25,7 +25,7 @@ export const TelegramModal = ({ isOpen, onClose }: TelegramModalProps) => {
 
   const handleJoinTelegram = () => {
     // Open Telegram link in new tab
-    window.open('https://t.me/your_cricket_channel', '_blank', 'noopener,noreferrer');
+    window.open('https://t.me/CricketNewsSkull', '_blank', 'noopener,noreferrer');
     try {
       localStorage.setItem('telegram_joined', 'true');
       setHasJoined(true);
