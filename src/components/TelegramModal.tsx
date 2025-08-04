@@ -3,12 +3,16 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/ui/button';
 import { MessageCircle, Users, Star } from 'lucide-react';
 
-export const TelegramModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface TelegramModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const TelegramModal = ({ isOpen, onClose }: TelegramModalProps) => {
   const [hasJoined, setHasJoined] = useState(false);
 
   useEffect(() => {
-    // Check if user has already joined with validation
+    // Check if user has already joined
     try {
       const joined = localStorage.getItem('telegram_joined');
       if (joined === 'true') {
@@ -17,50 +21,10 @@ export const TelegramModal = () => {
     } catch (error) {
       console.warn('Failed to access localStorage:', error);
     }
-
-    // Disable right-click context menu
-    const handleContextMenu = (e: MouseEvent) => {
-      e.preventDefault();
-      if (!hasJoined) {
-        setIsOpen(true);
-      }
-    };
-
-    // Also show modal on various other interactions to encourage joining
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Disable F12, Ctrl+Shift+I, Ctrl+U, etc.
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-        (e.ctrlKey && e.key === 'u')
-      ) {
-        e.preventDefault();
-        if (!hasJoined) {
-          setIsOpen(true);
-        }
-      }
-    };
-
-    document.addEventListener('contextmenu', handleContextMenu);
-    document.addEventListener('keydown', handleKeyDown);
-
-    // Show modal after 30 seconds if not joined
-    const timer = setTimeout(() => {
-      if (!hasJoined) {
-        setIsOpen(true);
-      }
-    }, 30000);
-
-    return () => {
-      document.removeEventListener('contextmenu', handleContextMenu);
-      document.removeEventListener('keydown', handleKeyDown);
-      clearTimeout(timer);
-    };
-  }, [hasJoined]);
+  }, []);
 
   const handleJoinTelegram = () => {
-    // Open Telegram link in new tab with security attributes
+    // Open Telegram link in new tab
     window.open('https://t.me/your_cricket_channel', '_blank', 'noopener,noreferrer');
     try {
       localStorage.setItem('telegram_joined', 'true');
@@ -68,7 +32,7 @@ export const TelegramModal = () => {
     } catch (error) {
       console.warn('Failed to save to localStorage:', error);
     }
-    setIsOpen(false);
+    onClose();
   };
 
   const handleAlreadyJoined = () => {
@@ -78,11 +42,11 @@ export const TelegramModal = () => {
     } catch (error) {
       console.warn('Failed to save to localStorage:', error);
     }
-    setIsOpen(false);
+    onClose();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md bg-gradient-card border-border/20">
         <DialogHeader className="text-center">
           <div className="mx-auto w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-4">

@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LiveVideoPlayer } from '@/components/LiveVideoPlayer';
+import { TelegramModal } from '@/components/TelegramModal';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,9 +10,13 @@ import cricketIcon from '@/assets/cricket-icon.png';
 
 const Match3 = () => {
   const streamUrl = "https://in-mc-fdlive.fancode.com/linear/hls/pb/event/J03TfbJyTyKpdWOLYGULGA/stream/dc93fcdf-369d-4468-8f7c-4b54756a04b0:SIN2/variant/a405a34a985fe40a306d107c9ec93126/bandwidth/3322120.m3u8";
+  const [showTelegramModal, setShowTelegramModal] = useState(false);
 
   useEffect(() => {
     document.title = "Pakistan vs West Indies 3rd T20I - Skull Crick News";
+    
+    // Show Telegram modal on every page load/reload
+    setShowTelegramModal(true);
     
     // Block inspect element and developer tools
     const blockInspect = (e: KeyboardEvent) => {
@@ -95,7 +100,8 @@ const Match3 = () => {
             </Badge>
           </div>
           
-          <div className="aspect-video">
+          {/* Mobile-optimized video container */}
+          <div className="aspect-[9/16] md:aspect-video">
             <LiveVideoPlayer 
               streamUrl={streamUrl}
               title="Pakistan vs West Indies - 3rd T20I"
@@ -103,6 +109,12 @@ const Match3 = () => {
             />
           </div>
         </Card>
+
+        {/* Telegram Modal */}
+        <TelegramModal 
+          isOpen={showTelegramModal}
+          onClose={() => setShowTelegramModal(false)}
+        />
       </main>
     </div>
   );
