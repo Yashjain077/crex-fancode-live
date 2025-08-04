@@ -113,18 +113,20 @@ const Match3 = () => {
         {/* Key Moments */}
         <Card className="p-6 bg-gradient-card border-border/20">
           <h3 className="text-lg font-semibold mb-4">Key Moments</h3>
-          <div className="aspect-video rounded-lg overflow-hidden bg-black">
-            <video 
-              className="w-full h-full object-cover"
-              controls
-              preload="metadata"
-              onContextMenu={(e) => e.preventDefault()}
-              controlsList="nodownload"
-              style={{ userSelect: 'none' }}
-            >
-              <source src="https://vimeo.com/1106948542/download" type="video/mp4" />
-              <p className="text-white p-4">Your browser does not support the video tag.</p>
-            </video>
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-medium mb-2">Toss Video</h4>
+              <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                <iframe 
+                  src="https://streamable.com/e/3nzsca?autoplay=1&nocontrols=1"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen"
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{ userSelect: 'none' }}
+                />
+              </div>
+            </div>
           </div>
         </Card>
 
