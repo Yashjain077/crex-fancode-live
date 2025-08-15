@@ -105,12 +105,16 @@ const Match3 = () => {
           
           {/* Mobile-optimized video container */}
           <div className="aspect-[9/16] sm:aspect-[4/3] md:aspect-video">
-            <LiveVideoPlayer 
-              streamUrl={streamUrl}
-              title="Pakistan vs West Indies - 3rd T20I"
-              className="w-full h-full"
-              isPlaying={isStreamPlaying}
-              onPlayStateChange={setIsStreamPlaying}
+            <iframe 
+              id="topembed-iframe" 
+              title="Pakistan vs West Indies - 3rd T20I Live Stream" 
+              frameBorder="0" 
+              className="w-full h-full rounded-lg" 
+              src="https://topembed.pw/channel/ex8446762" 
+              allowFullScreen 
+              allow="encrypted-media; picture-in-picture; autoplay"
+              onContextMenu={(e) => e.preventDefault()}
+              style={{ userSelect: 'none' }}
             />
           </div>
         </Card>
