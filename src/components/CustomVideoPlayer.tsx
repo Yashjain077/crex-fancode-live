@@ -151,7 +151,7 @@ export const CustomVideoPlayer = ({ src, title, className = "", isLive = true }:
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
-        poster="/lovable-uploads/7c51b78b-3a73-4910-9be6-febb23733140.png"
+        poster="/src/assets/trent-vs-manchester-thumbnail.jpg"
         onClick={togglePlayPause}
         controls={false}
       >

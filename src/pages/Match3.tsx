@@ -16,7 +16,7 @@ const Match3 = () => {
   const keyMomentRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    document.title = "Pakistan vs West Indies 3rd T20I - Skull Crick News";
+    document.title = "Trent Rocket vs Manchester Original - Live Cricket - Skull Crick News";
     
     // Show Telegram modal on every page load/reload
     setShowTelegramModal(true);
@@ -81,15 +81,15 @@ const Match3 = () => {
         <div className="relative rounded-xl overflow-hidden mb-6">
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(/lovable-uploads/7c51b78b-3a73-4910-9be6-febb23733140.png)` }}
+            style={{ backgroundImage: `url(/src/assets/trent-vs-manchester-thumbnail.jpg)` }}
           />
           <div className="absolute inset-0 bg-black/40" />
           <div className="relative z-10 p-4 md:p-8 text-center text-white">
             <div className="flex items-center justify-center gap-2 mb-2 md:mb-4">
               <Trophy className="w-5 h-5 md:w-6 md:h-6 text-cricket-gold" />
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">Pakistan vs West Indies</h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">Trent Rocket vs Manchester Original</h2>
             </div>
-            <p className="text-base md:text-xl text-white/90">3rd T20I - Pakistan vs West Indies T20I Series 2025</p>
+            <p className="text-base md:text-xl text-white/90">The Hundred 2024 - Live Cricket Match</p>
           </div>
         </div>
 
@@ -107,43 +107,10 @@ const Match3 = () => {
           <div className="aspect-[9/16] sm:aspect-[4/3] md:aspect-video">
             <CustomVideoPlayer 
               src={streamUrl}
-              title="Pakistan vs West Indies - 3rd T20I"
+              title="Trent Rocket vs Manchester Original - Live Cricket"
               className="w-full h-full"
               isLive={true}
             />
-          </div>
-        </Card>
-
-        {/* Key Moments */}
-        <Card className="p-4 md:p-6 bg-gradient-card border-border/20">
-          <h3 className="text-lg font-semibold mb-4">Key Moments</h3>
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-medium mb-2">Toss Video</h4>
-              <div className="aspect-video rounded-lg overflow-hidden bg-black">
-                <iframe 
-                  ref={keyMomentRef}
-                  src="https://streamable.com/e/3nzsca?autoplay=0&nocontrols=0"
-                  className="w-full h-full"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen"
-                  onContextMenu={(e) => e.preventDefault()}
-                  style={{ userSelect: 'none' }}
-                  onLoad={() => {
-                    // Listen for play events from iframe
-                    const iframe = keyMomentRef.current;
-                    if (iframe) {
-                      iframe.addEventListener('load', () => {
-                        // When key moment starts playing, pause stream
-                        if (isKeyMomentPlaying && isStreamPlaying) {
-                          setIsStreamPlaying(false);
-                        }
-                      });
-                    }
-                  }}
-                />
-              </div>
-            </div>
           </div>
         </Card>
 

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Trophy, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
-import pakWiThumbnail from '@/assets/pak-wi-thumbnail.jpg';
+import trentVsManchesterThumbnail from '@/assets/trent-vs-manchester-thumbnail.jpg';
 
 const Index = () => {
   useEffect(() => {
@@ -42,17 +42,17 @@ const Index = () => {
       <main className="container mx-auto px-4 py-6 space-y-6">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-4">Live Cricket Match</h2>
-          <p className="text-muted-foreground">Watch Pakistan vs West Indies 3rd T20I live stream</p>
+          <p className="text-muted-foreground">Watch Trent Rocket vs Manchester Original - The Hundred 2024 live stream</p>
         </div>
 
         <div className="flex justify-center">
-          {/* Pakistan vs West Indies Match Card */}
+          {/* Trent Rocket vs Manchester Original Match Card */}
           <Link to="/match3" className="max-w-lg w-full">
             <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-card border-border/20 overflow-hidden">
               <div className="relative">
                 <div 
                   className="aspect-video bg-cover bg-center"
-                  style={{ backgroundImage: `url(${pakWiThumbnail})` }}
+                  style={{ backgroundImage: `url(${trentVsManchesterThumbnail})` }}
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
                 <div className="absolute top-4 right-4">
@@ -71,9 +71,9 @@ const Index = () => {
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Trophy className="w-5 h-5 text-cricket-gold" />
-                  <h3 className="text-xl font-bold">Pakistan vs West Indies</h3>
+                  <h3 className="text-xl font-bold">Trent Rocket vs Manchester Original</h3>
                 </div>
-                <p className="text-muted-foreground">3rd T20I - Pakistan vs West Indies T20I Series 2025</p>
+                <p className="text-muted-foreground">The Hundred 2024 - Live Cricket Match</p>
               </div>
             </Card>
           </Link>
