@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Trophy, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
-import trentVsManchesterThumbnail from '@/assets/trent-vs-manchester-thumbnail.jpg';
+import trentVsManchesterThumbnail from 'https://ichef.bbci.co.uk/images/ic/1200x675/p0ltfcks.jpg';
 
 const Index = () => {
   useEffect(() => {
@@ -42,12 +42,12 @@ const Index = () => {
       <main className="container mx-auto px-4 py-6 space-y-6">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-4">Live Cricket Match</h2>
-          <p className="text-muted-foreground">Watch Trent Rocket vs Manchester Original - The Hundred 2024 live stream</p>
+          <p className="text-muted-foreground">Watch Trent Rocket vs Manchester Original - The Hundred 2025 live stream</p>
         </div>
 
         <div className="flex justify-center">
           {/* Trent Rocket vs Manchester Original Match Card */}
-          <Link to="/match3" className="max-w-lg w-full">
+          <Link to="/match20" className="max-w-lg w-full">
             <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 bg-gradient-card border-border/20 overflow-hidden">
               <div className="relative">
                 <div 
