@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { MediaPlayer } from 'dashjs';
 
 interface CustomVideoPlayerProps {
   src: string;
@@ -13,6 +14,7 @@ interface CustomVideoPlayerProps {
 export const CustomVideoPlayer = ({ src, title, className = "", isLive = true }: CustomVideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const dashPlayerRef = useRef<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState([100]);
@@ -22,7 +24,27 @@ export const CustomVideoPlayer = ({ src, title, className = "", isLive = true }:
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !src) return;
+
+    // Initialize DASH player for MPD streams
+    if (src.includes('.mpd')) {
+      const dashPlayer = MediaPlayer().create();
+      dashPlayerRef.current = dashPlayer;
+      
+      dashPlayer.initialize(video, src, false);
+      dashPlayer.setAutoPlay(false);
+      
+      // Set up event listeners for DASH player
+      dashPlayer.on('playbackStarted', () => setIsPlaying(true));
+      dashPlayer.on('playbackPaused', () => setIsPlaying(false));
+      
+      return () => {
+        if (dashPlayerRef.current) {
+          dashPlayerRef.current.destroy();
+          dashPlayerRef.current = null;
+        }
+      };
+    }
 
     const updateProgress = () => {
       if (video.duration) {
@@ -43,7 +65,7 @@ export const CustomVideoPlayer = ({ src, title, className = "", isLive = true }:
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
     };
-  }, []);
+  }, [src]);
 
   useEffect(() => {
     const hideControlsTimer = setTimeout(() => {
@@ -131,19 +153,13 @@ export const CustomVideoPlayer = ({ src, title, className = "", isLive = true }:
         className="w-full h-full object-cover"
         poster="/lovable-uploads/7c51b78b-3a73-4910-9be6-febb23733140.png"
         onClick={togglePlayPause}
+        controls={false}
       >
-        <source src={src} type="application/x-mpegURL" />
+        {!src.includes('.mpd') && (
+          <source src={src} type="application/x-mpegURL" />
+        )}
         Your browser does not support the video tag.
       </video>
-
-      {/* Iframe fallback for streaming */}
-      <iframe 
-        className="absolute inset-0 w-full h-full"
-        src="https://topembed.pw/channel/ex8446762"
-        frameBorder="0"
-        allowFullScreen
-        allow="encrypted-media; picture-in-picture; autoplay"
-      />
 
       {/* Controls Overlay */}
       <div 

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import cricketIcon from '@/assets/cricket-icon.png';
 
 const Match3 = () => {
-  const streamUrl = "https://in-mc-fdlive.fancode.com/linear/hls/pb/event/J03TfbJyTyKpdWOLYGULGA/stream/dc93fcdf-369d-4468-8f7c-4b54756a04b0:SIN2/variant/a405a34a985fe40a306d107c9ec93126/bandwidth/3322120.m3u8";
+  const streamUrl = "https://matchmaker.live.bidi.net.uk/vs-cmaf-push-uk/x=4/i=urn:bbc:pips:service:bbc_two_hd/pc_hd_abr_v2.mpd";
   const [showTelegramModal, setShowTelegramModal] = useState(false);
   const [isStreamPlaying, setIsStreamPlaying] = useState(true);
   const [isKeyMomentPlaying, setIsKeyMomentPlaying] = useState(false);
